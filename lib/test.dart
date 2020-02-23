@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:io';
 
 class Parser {
@@ -63,6 +64,9 @@ class Parser {
         case '/':
           this.pos++;
           return left ~/ this.term();
+        case '^':
+          this.pos++;
+          return pow(left, this.term());
         case ' ':
           this.pos++;
           break;
