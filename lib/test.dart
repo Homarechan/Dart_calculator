@@ -6,8 +6,6 @@ class Parser {
 
   Parser(this.src);
 
-  void set setsrc(String new_src) => this.src = new_src;
-
   String get now => this.src[this.pos];
   bool get isNowDigit => int.tryParse(this.now) != null;
 
