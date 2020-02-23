@@ -60,6 +60,10 @@ class Parser {
       switch (this.now) {
         case '*':
           this.pos++;
+          if (this.now == '*') {
+              this.pos++;
+              return pow(left, this.term());
+          }
           return left * this.term();
         case '/':
           this.pos++;
