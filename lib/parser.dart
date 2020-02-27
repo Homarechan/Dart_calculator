@@ -4,83 +4,65 @@ library test;
 import 'dart:math';
 import 'dart:io';
 
+import 'tokenizer.dart';
+import 'tokens.dart';
+
 class Parser {
-  int pos = 0;
-  String src;
+  int position = 0;
+  List<TokenInstance> tokenlist;
 
-  Parser(this.src);
+  Parser(this.tokenlist);
 
-  String get now => this.src[this.pos];
-  bool get isNowDigit => int.tryParse(this.now) != null;
-
-  void error() {
-    print("Unknown token at ${this.pos + 1}");
-    exit(1);
-  }
-
-  void skipWhiteSpace() {
-    while (this.now == ' ') {
-      this.pos++;
-    }
-  }
+  TokenInstance get now => this.tokenlist[this.position];
 
   ///
   /// expr ::= term
   ///        | term '+' expr
   ///        | term '-' expr
   ///        ;
-  /// 
+  ///
   int expr() {
     int left = this.term();
 
-    while (true) {
-      switch (this.now) {
-        case '+':
-          this.pos++;
-          return left + this.expr();
-        case '-':
-          this.pos++;
-          return left - this.expr();
-        case ' ':
-          this.pos++;
-          break;
-        default:
-          return left;
-      }
+    switch (this.now.str) {
+      case '+':
+        this.position++;
+        return left + this.term();
+      case '-':
+        this.position++;
+        return left - this.term();
     }
+    return left;
   }
 
   ///
   /// term ::= factor
   ///        | factor '*' term
   ///        | factor '/' term
+  ///        | factor '^' term
+  ///        | factor '**' term
   ///        ;
   ///
   int term() {
     int left = this.factor();
 
-    while (true) {
-      switch (this.now) {
-        case '*':
-          this.pos++;
-          if (this.now == '*') {
-              this.pos++;
-              return pow(left, this.term());
-          }
-          return left * this.term();
-        case '/':
-          this.pos++;
-          return left ~/ this.term();
-        case '^':
-          this.pos++;
-          return pow(left, this.term());
-        case ' ':
-          this.pos++;
-          break;
-        default:
-          return left;
-      }
+    if (this.position >= this.tokenlist.length) {
+      return left;
     }
+
+    switch (this.now.str) {
+      case "*":
+        this.position++;
+        return left * this.term();
+      case "/":
+        this.position++;
+        return left ~/ this.term();
+      case "**":
+      case "^":
+        this.position++;
+        return pow(left, this.term());
+    }
+    return left;
   }
 
   ///
@@ -89,44 +71,33 @@ class Parser {
   ///          ;
   ///
   int factor() {
-    while (true) {
-      switch (this.now) {
-        case '(':
-          this.pos++;
-          int innerExpr = this.expr();
+    switch (this.now.token) {
+      case Token.LeftBracket:
+        this.position++;
+        int innerExpr = this.expr();
 
-          if (this.now != ')') {
-            this.error();
-          }
+        if (this.now.token != Token.RightBracket) {
+          print("Unpaired bracket");
+          exit(1);
+        }
 
-          this.pos++;
-          return innerExpr;
-
-        case ' ':
-          this.pos++;
-          break;
-
-        default:
-          return this.digit();
-      }
+        this.position++;
+        return innerExpr;
+      case Token.Number:
+        return this.digit();
+      default:
+        print("Unexpexted token");
+        exit(1);
     }
   }
 
   ///
   /// DIGIT ::= [1-9][0-9]+
   ///         ;
-  /// 
+  ///
   int digit() {
-    String result = "";
-
-    while (this.isNowDigit) {
-      result += this.now;
-      this.pos++;
-    }
-
-    if (result.isNotEmpty) {
-      return int.parse(result);
-    }
-    return 0;
+    int now_ = this.now.number;
+    this.position++;
+    return now_;
   }
 }

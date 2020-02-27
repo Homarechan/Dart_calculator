@@ -1,7 +1,10 @@
 import 'lib/tokenizer.dart';
+import 'lib/parser.dart';
 
 void main() {
   Tokenizer tokenizer = Tokenizer("1 + 1");
   tokenizer.tokenize();
-  print(tokenizer.tokenlist[1].str);
+
+  Parser parser = Parser(tokenizer.tokenlist);
+  print(parser.expr());
 }
