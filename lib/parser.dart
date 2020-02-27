@@ -1,3 +1,6 @@
+/// A simple library which serve parser
+library test;
+
 import 'dart:math';
 import 'dart:io';
 
@@ -21,12 +24,12 @@ class Parser {
     }
   }
 
-  /**
-   * expr ::= term
-   *        | term '+' expr
-   *        | term '-' expr
-   *        ;
-   */
+  ///
+  /// expr ::= term
+  ///        | term '+' expr
+  ///        | term '-' expr
+  ///        ;
+  /// 
   int expr() {
     int left = this.term();
 
@@ -47,12 +50,12 @@ class Parser {
     }
   }
 
-  /**
-   * term ::= factor
-   *        | factor '*' term
-   *        | factor '/' term
-   *        ;
-   */
+  ///
+  /// term ::= factor
+  ///        | factor '*' term
+  ///        | factor '/' term
+  ///        ;
+  ///
   int term() {
     int left = this.factor();
 
@@ -80,11 +83,11 @@ class Parser {
     }
   }
 
-  /**
-   * factor ::= DIGIT
-   *          | '(' expr ')'
-   *          ;
-   */
+  ///
+  /// factor ::= DIGIT
+  ///          | '(' expr ')'
+  ///          ;
+  ///
   int factor() {
     while (true) {
       switch (this.now) {
@@ -109,10 +112,10 @@ class Parser {
     }
   }
 
-  /**
-   * DIGIT ::= [1-9][0-9]+
-   *         ;
-   */
+  ///
+  /// DIGIT ::= [1-9][0-9]+
+  ///         ;
+  /// 
   int digit() {
     String result = "";
 
