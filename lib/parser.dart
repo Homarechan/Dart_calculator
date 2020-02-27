@@ -100,7 +100,6 @@ class Parser {
   ///         ;
   ///
   int digit() {
-    print(now.str);
     int now_ = this.now.number;
     this.position++;
     return now_;
