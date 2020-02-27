@@ -4,7 +4,6 @@ library test;
 import 'dart:math';
 import 'dart:io';
 
-import 'tokenizer.dart';
 import 'tokens.dart';
 
 class Parser {
