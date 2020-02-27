@@ -1,3 +1,5 @@
+library tokeniser;
+
 import 'tokens.dart';
 
 import 'dart:io';
@@ -12,10 +14,8 @@ class Tokenizer {
   String get now => this.src[this.position];
   bool get isNowDigit => int.tryParse(this.now) != null;
 
-  List<TokenInstance> tokenize() {
-    List<TokenInstance> result = [];
-
-    while (true) {
+  tokenize() {
+    while (this.position < this.src.length) {
       // switch (src[position])
       if (this.now == " ") {
         this.position++;
@@ -27,7 +27,7 @@ class Tokenizer {
         continue;
       }
 
-      if ("1234567890".contains(this.now)) {
+      if (this.isNowDigit) {
         this.addNumber();
         continue;
       }
@@ -35,7 +35,6 @@ class Tokenizer {
   }
 
   addOperator() {
-    this.position++;
     switch (this.now) {
       case "+":
       case "-":
@@ -57,12 +56,13 @@ class Tokenizer {
         print("Error");
         exit(1);
     }
+    this.position++;
   }
 
   addNumber() {
     String result = "";
 
-    while ("1234567890".contains(this.now)) {
+    while (this.position < this.src.length && this.isNowDigit) {
       result += this.now;
       this.position++;
     }

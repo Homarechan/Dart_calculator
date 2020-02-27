@@ -1,3 +1,5 @@
+library tokens;
+
 enum Token { Number, Operator }
 
 class TokenInstance {
