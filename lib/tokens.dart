@@ -1,6 +1,6 @@
 library tokens;
 
-enum Token { Number, Operator }
+enum Token { Number, Operator, LeftBracket, RightBracket }
 
 class TokenInstance {
   Token token;

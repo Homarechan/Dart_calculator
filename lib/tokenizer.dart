@@ -22,6 +22,16 @@ class Tokenizer {
         continue;
       }
 
+      if (this.now == "(") {
+        this.position++;
+        this.tokenlist.add(TokenInstance(Token.LeftBracket, "(", 0, 1));
+      }
+
+      if (this.now == ")") {
+        this.position++;
+        this.tokenlist.add(TokenInstance(Token.RightBracket, ")", 0, 1));
+      }
+
       if ("+-*/^".contains(this.now)) {
         this.addOperator();
         continue;
