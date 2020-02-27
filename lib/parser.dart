@@ -23,6 +23,10 @@ class Parser {
   int expr() {
     int left = this.term();
 
+    if (this.position + 1 >= this.tokenlist.length) {
+      return left;
+    }
+
     switch (this.now.str) {
       case '+':
         this.position++;
@@ -31,6 +35,7 @@ class Parser {
         this.position++;
         return left - this.term();
     }
+
     return left;
   }
 
@@ -45,7 +50,7 @@ class Parser {
   int term() {
     int left = this.factor();
 
-    if (this.position >= this.tokenlist.length) {
+    if (this.position + 1 >= this.tokenlist.length) {
       return left;
     }
 
