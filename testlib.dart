@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'lib/test.dart' as t;
+import 'lib/parser.dart' as t;
 
 void main() {
   t.Parser parser;
