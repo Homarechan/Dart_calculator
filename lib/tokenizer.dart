@@ -29,6 +29,7 @@ class Tokenizer {
 
       if ("1234567890".contains(this.now)) {
         this.addNumber();
+        continue;
       }
     }
   }
