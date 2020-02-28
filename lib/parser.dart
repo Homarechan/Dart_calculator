@@ -60,7 +60,14 @@ class Parser {
         return left * this.term();
       case "/":
         this.position++;
-        return left ~/ this.term();
+        int right = this.term();
+        
+        if (right == 0) {
+          print("Can't devide by 0");
+          exit(1);
+        }
+        
+        return left ~/ right;
       case "**":
       case "^":
         this.position++;
