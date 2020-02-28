@@ -1,5 +1,4 @@
-import 'lib/tokenizer.dart';
-import 'lib/parser.dart';
+import 'lib/shelf.dart';
 
 import 'dart:io';
 
