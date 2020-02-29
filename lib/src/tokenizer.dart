@@ -43,6 +43,9 @@ class Tokenizer {
         this.addNumber();
         continue;
       }
+
+      print("Unknown charactor (${this.now}) at ${this.position + 1}");
+      exit(1);
     }
   }
 

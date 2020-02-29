@@ -1,7 +1,6 @@
 import 'package:test/test.dart';
 
-import '../lib/tokenizer.dart';
-import '../lib/tokens.dart';
+import '../lib/shelf.dart';
 
 main() {
   test("Tokenizer.tokenize() tokenize the string to list of TokenInstance", () {
