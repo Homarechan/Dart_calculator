@@ -44,7 +44,7 @@ class Tokenizer {
         continue;
       }
 
-      print("Unknown charactor (${this.now}) at ${this.position}");
+      print("Unknown charactor (${this.now}) at ${this.position + 1}");
       exit(1);
     }
   }
