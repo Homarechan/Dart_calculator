@@ -25,11 +25,13 @@ class Tokenizer {
       if (this.now == "(") {
         this.position++;
         this.tokenlist.add(TokenInstance(Token.LeftBracket, "(", 0, 1));
+        continue;
       }
 
       if (this.now == ")") {
         this.position++;
         this.tokenlist.add(TokenInstance(Token.RightBracket, ")", 0, 1));
+        continue;
       }
 
       if ("+-*/^".contains(this.now)) {
@@ -42,7 +44,7 @@ class Tokenizer {
         continue;
       }
 
-      print("Unknown charactor (${this.now}) at ${this.position}");
+      print("Unknown charactor (${this.now}) at ${this.position + 1}");
       exit(1);
     }
   }
