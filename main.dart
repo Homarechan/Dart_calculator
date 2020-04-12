@@ -1,4 +1,4 @@
-import 'lib/shelf.dart';
+import 'lib/shelf.dart' show Parser, Tokenizer;
 
 import 'dart:io';
 
