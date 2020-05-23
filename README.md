@@ -2,7 +2,7 @@
 
 This is a culculator written in Dart language.
 
-This program is written for my studying.
+This program was written for my studying.
 
 ## Execute
 ```bash
